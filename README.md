@@ -6,12 +6,22 @@ Docker container to run DNS updates to a ChangeIP.com account
 
 Be sure to enable the "Set 1" switch on the [target host record on your ChangeIP.com account](https://www.changeip.com/accounts/dnsmanager.php).
 
+Set the following env variables with your ChangeIP.com account info:
+
+```bash
+export CHANGEIP_USERNAME=user
+export CHANGEIP_PASSWORD=password
+export CHANGEIP_RECORD=myrecord.example.com
+```
+
+Then pull the latest image and run a one-off container to execute the script:
+
 ```
 docker pull tribou/changeip-updater
-docker run --name='changeip-updater' -d         \
-    -e 'CHANGEIP_USERNAME=user'                 \
-    -e 'CHANGEIP_PASSWORD=password'             \
-    -e 'CHANGEIP_RECORD=myrecord.example.com'   \
+docker run --rm -it          \
+    -e 'CHANGEIP_USERNAME'   \
+    -e 'CHANGEIP_PASSWORD'   \
+    -e 'CHANGEIP_RECORD'     \
     tribou/changeip-updater
 ```
 
